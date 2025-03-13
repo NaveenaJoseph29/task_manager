@@ -1,0 +1,52 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# Expo & React Native build artifacts
+.expo/
+.expo-shared/
+android/
+ios/
+build/
+dist/
+*.expo
+*.expo.dev
+*.expo.prod
+
+# Metro bundler files
+.expo/cache/
+.expo/packager-info.json
+
+# Logs
+*.log
+logs
+debug.log
+error.log
+*.log.*
+
+# Editor & OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Environment variables & credentials
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+.env*.local
+config.js
+
+# Babel & ESLint
+babel.config.js
+eslintcache
+
+# Secure storage files (Expo SecureStore)
+storage/
+securestore/
