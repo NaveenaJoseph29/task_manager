@@ -33,24 +33,22 @@ export const login = async (credentials: LoginCredentials) => {
 
 export const signup = async (userData: SignupData) => {
   try {
-    console.log('Signing up with:', userData); 
+    console.log("Signing up with:", userData);
     const response = await axiosInstance.post(ENDPOINTS.SIGNUP, userData);
-    console.log('Signup response:', response.data); 
+    console.log("Signup response:", response.data);
 
-if (response.data.token && response.data.user) {
-  await storeAuthData(response.data.token, response.data.user);
-  await setAuthToken(response.data.token);
-  return { token: response.data.token, user: response.data.user }; 
-}
-    throw new Error('Invalid response from server');
-  } catch (error: any) {
-    console.error('Signup error:', error.response?.data || error.message); 
-    if (error.response) {
-      throw new Error(error.response.data.message || 'Signup failed');
+    if (response.data.token && response.data.user) {
+      await storeAuthData(response.data.token, response.data.user);
+      await setAuthToken(response.data.token);
+      return { token: response.data.token, user: response.data.user };
     }
-    throw error;
+    throw new Error("Invalid response from server");
+  } catch (error: any) {
+    console.error("Signup error:", error.response?.data || error.message);
+    throw new Error(error.response?.data?.message || "Signup failed");
   }
 };
+
 
 
 export const logout = async () => {

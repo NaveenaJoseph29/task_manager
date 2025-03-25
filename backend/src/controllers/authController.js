@@ -34,6 +34,7 @@ export const signup = asyncHandler(async (req, res) => {
 
 
 export const login = asyncHandler(async (req, res) => {
+  console.log("Login request received:", req.body); 
   const { email, password } = req.body;
 
 
