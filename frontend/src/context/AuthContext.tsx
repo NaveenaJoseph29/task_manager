@@ -43,15 +43,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         const token = await getAuthToken();
         const userData = await getUserData();
         
-        console.log('Token on launch:', token);
-        console.log('User Data on launch:', userData);
+        console.log('🔹 Token on launch:', token);
+        console.log('🔹 User Data on launch:', userData);
   
         if (token && userData) {
           axiosInstance.defaults.headers.Authorization = `Bearer ${token}`;
           setUser(userData);
         }
       } catch (err) {
-        console.error('Error loading user data:', err);
+        console.error('❌ Error loading user data:', err);
       } finally {
         setIsLoading(false);
       }
@@ -63,50 +63,76 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const login = async (email: string, password: string) => {
     setIsLoading(true);
     setError(null);
+  
     try {
-      const { token, user } = await authService.login({ email, password });
-
-      console.log('Login successful:', token, user);
+      console.log('🔹 Attempting login with:', email);
+      
+      const response = await authService.login({ email, password });
+  
+      if (!response?.token || !response?.user) {
+        throw new Error('Invalid login response');
+      }
+  
+      const { token, user } = response;
+  
       await storeAuthData(token, user);
       axiosInstance.defaults.headers.Authorization = `Bearer ${token}`;
       
       setUser(user);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Login failed');
+    } catch (err: any) {
+      console.error('❌ Login error:', err);
+      setError(err?.response?.data?.message || err.message || 'Login failed');
       throw err;
     } finally {
       setIsLoading(false);
     }
   };
-
+  
   const signup = async (name: string, email: string, password: string) => {
     setIsLoading(true);
     setError(null);
     try {
-      const { token, user } = await authService.signup({ name, email, password });
+      console.log('🔹 Attempting signup with:', name, email);
+      
+      const response = await authService.signup({ name, email, password });
 
-      console.log('Signup successful:', token, user);
+      console.log('✅ Signup response:', response);
+      
+      if (!response || !response.token || !response.user) {
+        throw new Error('Invalid signup response');
+      }
+
+      const { token, user } = response;
+
+      console.log('✅ Signup successful:', token, user);
+      
       await storeAuthData(token, user);
       axiosInstance.defaults.headers.Authorization = `Bearer ${token}`;
 
       setUser(user);
     } catch (err) {
+      console.error('❌ Signup error:', err);
       setError(err instanceof Error ? err.message : 'Signup failed');
       throw err;
     } finally {
       setIsLoading(false);
     }
   };
+
   const logout = async (router: any) => {  
     setIsLoading(true);
     setError(null);
     try {
+      console.log('🔹 Logging out user...');
+      
       await clearAuthData();
       axiosInstance.defaults.headers.Authorization = '';
       setUser(null);
-      console.log('User logged out, navigating to login screen...');  
+      
+      console.log('✅ User logged out, navigating to login screen...');
       router.replace('/auth/login'); 
     } catch (err) {
+      console.error('❌ Logout error:', err);
       setError(err instanceof Error ? err.message : 'Logout failed');
       throw err;
     } finally {
