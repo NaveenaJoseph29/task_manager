@@ -58,6 +58,8 @@ export default function RootLayout() {
             <Stack.Screen name="auth/login" options={{ title: 'Login',headerShown: false}}/>
             <Stack.Screen name="auth/signup" options={{ title: 'Sign Up',headerShown: false}}/>
             <Stack.Screen name="tasks/index" options={{ title: 'My Tasks',headerShown: false }} />
+            <Stack.Screen name="/request-password-reset" options={{ title: 'My Tasks',headerShown: false }} />
+            <Stack.Screen name="/reset-password" options={{ title: 'My Tasks',headerShown: false }} />
           </Stack>
         </PaperProvider>
       </TaskProvider>

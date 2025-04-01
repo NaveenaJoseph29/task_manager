@@ -9,7 +9,6 @@ import { Button } from "react-native-paper";
 const RegisterScreen = () => {
   const [secureText, setSecureText] = useState(true);
   const [secureText1, setSecureText1] = useState(true);
-
   const { signup } = useAuth();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -48,7 +47,6 @@ const RegisterScreen = () => {
       <Text style={styles.title}>Register</Text>
       <Text style={styles.subtitle}>Please register to login.</Text>
       {error ? <Text style={globalStyles.errorText}>{error}</Text> : null}
-      {/* Username Input */}
       <View style={styles.inputContainer}>
         <Icon name="user" size={20} color="#666" style={styles.icon} />
         <TextInput
@@ -60,7 +58,6 @@ const RegisterScreen = () => {
         />
       </View>
 
-      {/* Mobile Number Input */}
       <View style={styles.inputContainer}>
         <FontAwesome name="phone" size={20} color="#666" style={styles.icon} />
         <TextInput
@@ -74,7 +71,6 @@ const RegisterScreen = () => {
         />
       </View>
 
-      {/* Password Input */}
       <View style={styles.inputContainer}>
         <Icon name="lock" size={20} color="#666" style={styles.icon} />
         <TextInput
@@ -105,10 +101,6 @@ const RegisterScreen = () => {
         </TouchableOpacity>
       </View>
 
-      {/* Sign Up Button */}
-      {/* <TouchableOpacity style={styles.signUpButton}>
-        <Text style={styles.signUpText}>Sign Up</Text>
-      </TouchableOpacity> */}
       <Button
           mode="contained"
           onPress={handleSignup}
@@ -119,10 +111,6 @@ const RegisterScreen = () => {
           Sign Up
         </Button>
 
-      {/* Sign In Link */}
-      {/* <Text style={styles.signInText}>
-        Already have an account? <Text style={styles.signInLink}>Sign In</Text>
-      </Text> */}
       <View style={styles.linkContainer}>
           <Text>Already have an account? </Text>
           <Link href="/auth/login" asChild>

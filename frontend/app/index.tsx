@@ -10,7 +10,7 @@ export default function Index() {
   useEffect(() => {
     if (!isLoading) {
       if (isAuthenticated) {
-        router.replace('/tasks/index');
+        router.replace('/tasks');
       } else {
         router.replace('/auth/signup');
       }
