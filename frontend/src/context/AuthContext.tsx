@@ -119,26 +119,27 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  const logout = async (router: any) => {  
+  const logout = async () => {  
     setIsLoading(true);
     setError(null);
     try {
-      console.log('🔹 Logging out user...');
+      console.log("🔹 Logging out user...");
       
       await clearAuthData();
-      axiosInstance.defaults.headers.Authorization = '';
+      axiosInstance.defaults.headers.Authorization = "";
       setUser(null);
       
-      console.log('✅ User logged out, navigating to login screen...');
-      router.replace('/auth/login'); 
+      console.log("✅ User logged out!");
     } catch (err) {
-      console.error('❌ Logout error:', err);
-      setError(err instanceof Error ? err.message : 'Logout failed');
+      console.error("❌ Logout error:", err);
+      setError(err instanceof Error ? err.message : "Logout failed");
       throw err;
     } finally {
       setIsLoading(false);
     }
   };
+  
+  
 
   return (
     <AuthContext.Provider

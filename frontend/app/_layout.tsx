@@ -55,11 +55,9 @@ export default function RootLayout() {
             }}
           >
             <Stack.Screen name="index" options={{ headerShown: false }} />
-            <Stack.Screen name="auth/login" options={{ title: 'Login' }} />
-            <Stack.Screen name="auth/signup" options={{ title: 'Sign Up' }} />
-            <Stack.Screen name="tasks/index" options={{ title: 'My Tasks' }} />
-            <Stack.Screen name="tasks/add" options={{ title: 'Add New Task' }} />
-            <Stack.Screen name="tasks/[id]" options={{ title: 'Task List' }} />
+            <Stack.Screen name="auth/login" options={{ title: 'Login',headerShown: false}}/>
+            <Stack.Screen name="auth/signup" options={{ title: 'Sign Up',headerShown: false}}/>
+            <Stack.Screen name="tasks/index" options={{ title: 'My Tasks',headerShown: false }} />
           </Stack>
         </PaperProvider>
       </TaskProvider>
