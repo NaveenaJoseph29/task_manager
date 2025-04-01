@@ -11,6 +11,7 @@ import {
   Modal,
   TextInput,
   RefreshControl,
+  Alert,
 } from "react-native";
 import { Menu } from "react-native-paper";
 import * as IconSets from "@expo/vector-icons";
@@ -25,7 +26,7 @@ interface Task {
 }
 
 const App = () => {
-  const { user, logout } = useAuth()
+  const { user, logout } = useAuth();
   const router = useRouter();
   const [menuVisible, setMenuVisible] = useState(false);
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -95,6 +96,33 @@ const App = () => {
     }
   };
 
+  const deleteTask = async (taskId: string) => {
+    try {
+      const confirmDelete = () => {
+        Alert.alert("Delete Task", "Are you sure you want to delete this task?", [
+          {
+            text: "Cancel",
+            style: "cancel",
+          },
+          {
+            text: "OK",
+            onPress: async () => {
+              try {
+                await axiosInstance.delete(`/tasks/${taskId}`);
+                fetchTasks();
+              } catch (error) {
+                console.error("Error deleting task:", error);
+              }
+            },
+          },
+        ]);
+      };
+      confirmDelete();
+    } catch (error) {
+      console.error("Error deleting task:", error);
+    }
+  };
+
   return (
     <ImageBackground
       source={require("../../assets/images/bg.jpg")}
@@ -106,7 +134,10 @@ const App = () => {
             visible={menuVisible}
             onDismiss={() => setMenuVisible(false)}
             anchor={
-              <TouchableOpacity onPress={() => setMenuVisible(true)} style={styles.menuIcon}>
+              <TouchableOpacity
+                onPress={() => setMenuVisible(true)}
+                style={styles.menuIcon}
+              >
                 <IconSets.Feather name="more-vertical" size={24} color="white" />
               </TouchableOpacity>
             }
@@ -138,12 +169,20 @@ const App = () => {
                   <Text style={styles.title}>{item.title}</Text>
                   <Text style={styles.description}>{item.description}</Text>
                 </View>
-                <TouchableOpacity
-                  style={styles.editButton}
-                  onPress={() => openTaskModal(item)}
-                >
-                  <IconSets.Feather name="edit" size={20} color="white" />
-                </TouchableOpacity>
+                <View style={styles.actionButtons}>
+                  <TouchableOpacity
+                    style={styles.editButton}
+                    onPress={() => openTaskModal(item)}
+                  >
+                    <IconSets.Feather name="edit" size={20} color="white" />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.deleteButton}
+                    onPress={() => deleteTask(item._id)}
+                  >
+                    <IconSets.Feather name="trash-2" size={20} color="white" />
+                  </TouchableOpacity>
+                </View>
               </View>
             )}
             refreshControl={
@@ -174,7 +213,10 @@ const App = () => {
                 <TouchableOpacity style={styles.saveButton} onPress={saveTask}>
                   <Text style={styles.buttonText}>Save</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.cancelButton} onPress={() => setModalVisible(false)}>
+                <TouchableOpacity
+                  style={styles.cancelButton}
+                  onPress={() => setModalVisible(false)}
+                >
                   <Text style={styles.buttonText}>Cancel</Text>
                 </TouchableOpacity>
               </View>
@@ -222,8 +264,16 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: "lightgray",
   },
+  actionButtons: {
+    flexDirection: "row",
+  },
   editButton: {
     backgroundColor: "rgba(0,0,0,0.6)",
+    padding: 8,
+    borderRadius: 5,
+    marginRight: 5,
+  },
+  deleteButton: {
     padding: 8,
     borderRadius: 5,
   },
