@@ -70,6 +70,6 @@ Ensure that the backend API is running and accessible at the URL provided in you
 
 If you are facing any issues in running the app go to the constants.ts file and change your system IP:
 ```sh
-IP Config
+ipconfig
 ```
 Copy the IPV4 address and paste it. 
