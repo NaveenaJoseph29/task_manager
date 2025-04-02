@@ -58,22 +58,28 @@ const LoginScreen = () => {
           <Icon name={secureText ? "eye-slash" : "eye"} size={20} color="#666" style={styles.iconRight} />
         </TouchableOpacity>
       </View>
+
+      {/* Forgot Password Link */}
+      <Link href="/auth/forgot-password" asChild>
+        <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
+      </Link>
+
       <Button
-          mode="contained"
-          onPress={handleLogin}
-          loading={loading}
-          disabled={loading}
-          style={globalStyles.button}
-        >
-          Login
-        </Button>
+        mode="contained"
+        onPress={handleLogin}
+        loading={loading}
+        disabled={loading}
+        style={globalStyles.button}
+      >
+        Login
+      </Button>
 
       <View style={styles.linkContainer}>
-          <Text>Don't have an account? </Text>
-          <Link href="/auth/signup" asChild>
-            <Text style={styles.link}>Sign Up</Text>
-          </Link>
-        </View>
+        <Text>Don't have an account? </Text>
+        <Link href="/auth/signup" asChild>
+          <Text style={styles.link}>Sign Up</Text>
+        </Link>
+      </View>
     </View>
   );
 };
@@ -86,14 +92,20 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     paddingHorizontal: 20,
   },
+  forgotPasswordText: {
+    alignSelf: "flex-end",
+    marginBottom: 10,
+    color: "#6200ee",
+    fontWeight: "bold",
+  },
   linkContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
     marginTop: 16,
   },
   link: {
-    color: '#6200ee',
-    fontWeight: 'bold',
+    color: "#6200ee",
+    fontWeight: "bold",
   },
   image: {
     width: 350,
@@ -131,33 +143,6 @@ const styles = StyleSheet.create({
   },
   iconRight: {
     padding: 10,
-  },
-  rememberContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: "100%",
-    marginBottom: 20,
-  },
-  signInButton: {
-    backgroundColor: "#162D46",
-    paddingVertical: 15,
-    borderRadius: 10,
-    alignItems: "center",
-    width: "100%",
-  },
-  signInText: {
-    color: "#FFF",
-    fontWeight: "bold",
-    fontSize: 16,
-  },
-  signUpText: {
-    marginTop: 20,
-    color: "#666",
-  },
-  signUpLink: {
-    color: "#162D46",
-    fontWeight: "bold",
   },
 });
 

@@ -1,4 +1,5 @@
 import axiosInstance, { setAuthToken } from '../utils/axiosConfig';
+import axios from '../utils/axiosConfig';
 import { ENDPOINTS } from '../utils/constants';
 import { storeAuthData, clearAuthData } from './storage';
 
@@ -49,7 +50,11 @@ export const signup = async (userData: SignupData) => {
   }
 };
 
+export const forgotPassword = (email: string) => 
+  axiosInstance.post(ENDPOINTS.FORGOT_PASSWORD, { email });
 
+export const resetPassword = (token: string, newPassword: string) =>
+    axios.post(`/auth/reset-password?token=${token}`, { newPassword });
 
 export const logout = async () => {
   try {
